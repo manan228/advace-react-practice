@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import AddUser from "./Component/AddUser";
+import UserList from "./Component/UserList";
+import Error from "./Component/Error";
+
+let userList = [
+  {
+    userName: "Manan",
+    userAge: 21,
+  },
+  {
+    userName: "Ishani",
+    userAge: 25,
+  },
+  {
+    userName: "Rutvi",
+    userAge: 23,
+  },
+];
 
 function App() {
+  const [user, setUser] = useState(userList);
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  const addUser = (newUser) => {
+    // userList = [newUser, ...userList]
+    // return setUser(userList);
+
+    return setUser((prevState) => [newUser, ...prevState]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!isEmpty && <AddUser onAddUser={addUser} flag={setIsEmpty} />}
+      {!isEmpty && <UserList user={user} />}
+      {isEmpty && <Error flag={setIsEmpty} />}
     </div>
   );
 }
