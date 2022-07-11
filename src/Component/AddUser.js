@@ -5,38 +5,33 @@ const AddUser = (props) => {
   const [newUsername, setUsername] = useState();
 
   const onSubmitHandler = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
 
-    if(newAge === undefined || newUsername === undefined) {
-
-        console.log(props)
-        props.flag(true)
-        return;
+    if (newAge === undefined || newUsername === undefined) {
+      console.log(props);
+      props.flag(true);
+      return;
     }
 
-    if(newAge <= 0) {
-
-        props.flag(true);
-        return;
+    if (newAge <= 0) {
+      props.flag(true);
+      return;
     }
 
     const newUser = {
+      userName: newUsername,
+      userAge: newAge,
+    };
 
-        userName: newUsername,
-        userAge: newAge
-    }
-
-    props.onAddUser(newUser)
+    props.onAddUser(newUser);
   };
 
   const onUsernameChangeHandler = (event) => {
-
-    setUsername(event.target.value)
+    setUsername(event.target.value);
   };
 
   const onAgeChangeHandler = (event) => {
-
-    setAge(event.target.value)
+    setAge(event.target.value);
   };
 
   return (
@@ -44,11 +39,19 @@ const AddUser = (props) => {
       <form>
         <div>
           <label>Username</label>
-          <input type="text" onChange={onUsernameChangeHandler}></input>
+          <input
+            // value={newUsername}
+            type="text"
+            onChange={onUsernameChangeHandler}
+          ></input>
         </div>
         <div>
           <label>Age</label>
-          <input type="text" onChange={onAgeChangeHandler}></input>
+          <input
+            // value={newAge}
+            type="text"
+            onChange={onAgeChangeHandler}
+          ></input>
         </div>
         <button type="submit" onClick={onSubmitHandler}>
           Add User
